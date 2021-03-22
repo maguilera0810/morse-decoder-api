@@ -1,1 +1,1 @@
-web: gunicorn familyTest.wsgi --log-file -
+web: gunicorn familifyTest.wsgi --log-file -
