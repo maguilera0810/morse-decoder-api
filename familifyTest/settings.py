@@ -60,7 +60,7 @@ ROOT_URLCONF = 'familifyTest.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -85,7 +85,7 @@ DATABASES = {
     )
 }
 
-#DATABASES = {
+# DATABASES = {
 #    'default': {
 #        'ENGINE': 'django.db.backends.postgresql_psycopg2',
 #        'NAME': 'djangogirls',
@@ -94,10 +94,10 @@ DATABASES = {
 #        'HOST': 'localhost',
 #        'PORT': '',
 #    }
-#}
+# }
 #
 #db_from_env = dj_database_url.config(conn_max_age=500)
-#DATABASES['default'].update(db_from_env)
+# DATABASES['default'].update(db_from_env)
 
 
 # Password validation

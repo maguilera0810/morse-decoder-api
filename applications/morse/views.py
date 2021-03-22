@@ -3,12 +3,17 @@ from rest_framework.generics import ListAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from applications.morse.models import CodigoMorse, WordsTable
+from django.views.generic import TemplateView
 from .serializers import (
     MorseCodeSerializer,
     TranslateSerializer,
     WordsFrecuencySerializer,
     WordsPagination
 )
+
+
+class InicioView(TemplateView):
+    template_name = "morse/home.html"
 
 
 class MorseCodesView(ListAPIView):
