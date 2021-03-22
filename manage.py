@@ -3,7 +3,7 @@
 import os
 import sys
 
-
+print(os.getcwd())
 def main():
     """Run administrative tasks."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'familifyTest.settings')
