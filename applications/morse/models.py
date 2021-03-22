@@ -313,5 +313,5 @@ class WordsTable(models.Model):
                     word.save()
                 else:
                     word = self.create(
-                        word=key, morse=CodigoMorse.translate2Morse(key), frequency=val)
+                        word=key, morse=CodigoMorse.translate2Morse(key)[0], frequency=val)
                     word.save()
