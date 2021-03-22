@@ -61,7 +61,7 @@ class CodigoMorse(models.Model):
             values = list(dict_morse.values())
             res = keys[values.index(letter)]
         except Exception as e:
-            raise e
+            raise letter
         return res
 
     @staticmethod

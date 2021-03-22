@@ -46,7 +46,7 @@ class Translate2Morse(APIView):
                 code = 200
             except Exception as e:
                 code = 500
-                res = f'DecodeBits2Morse Error: {e}'
+                res = f'Translate2Morse Error:{e}'
         return Response({
             'code': code,
             'response': res
@@ -68,7 +68,7 @@ class Translate2Human(APIView):
                 code = 200
             except Exception as e:
                 code = 500
-                res = f'DecodeBits2Morse Error: {e}'
+                res = f'Translate2Human Error:{e}'
         return Response({
             'code': code,
             'response': res
@@ -90,7 +90,7 @@ class DecodeBits2Morse(APIView):
                 code = 200
             except Exception as e:
                 code = 500
-                res = f'DecodeBits2Morse Error: {e}'
+                res = f'DecodeBits2Morse Error:{e}'
         return Response({
             'code': code,
             'response': res
@@ -113,7 +113,7 @@ class DecodeBits2Human(APIView):
                 code = 200
             except Exception as e:
                 code = 500
-                res = f'DecodeBits2Human Error: {e}'
+                res = f'DecodeBits2Human Error:{e}'
         return Response({
             'code': code,
             'response': res

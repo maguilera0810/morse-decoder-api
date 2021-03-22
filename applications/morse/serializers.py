@@ -13,7 +13,7 @@ class MorseCodeSerializer(serializers.ModelSerializer):
 
 
 class TranslateSerializer(serializers.Serializer):
-    text = serializers.CharField(required=True)
+    text = serializers.CharField(required=True, allow_blank=True)
 
 
 class WordsFrecuencySerializer(serializers.ModelSerializer):
