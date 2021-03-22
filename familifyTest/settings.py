@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import dj_database_url
-from decouple import config
+
 from pathlib import Path
 from datetime import timedelta
 
@@ -80,11 +80,18 @@ WSGI_APPLICATION = 'familifyTest.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(
-        default=config('DATABASE_URL')
-    )
-
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'djangogirls',
+        'USER': 'mauss',
+        'PASSWORD': 'mauss123',
+        'HOST': 'localhost',
+        'PORT': '',
+    }
 }
+
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
 
 
 # Password validation
