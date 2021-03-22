@@ -25,4 +25,4 @@ sqlparse==0.4.1
 toml==0.10.2
 urllib3==1.26.4
 whitenoise==4.0
-psycopg2
+psycopg2-binary
