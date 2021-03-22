@@ -72,7 +72,7 @@ class CodigoMorse(models.Model):
         ----------
         lista : array
             A list of strings that coitains zeros and ones, only one type per element i.e. ['000','111']
-        
+
         Returns
         -------
         str
@@ -103,7 +103,7 @@ class CodigoMorse(models.Model):
         """
         indixes = []
         sep = self.__find_greatest_separator(lista)
-        print('--->>',sep, lista)
+        print('--->>', sep, lista)
         for reps in range(len(sep), min_leght-1, -1):
             indixes += [idx for idx,
                         val in enumerate(lista) if val == '0'*reps]
@@ -193,8 +193,15 @@ class CodigoMorse(models.Model):
             print('22222222222')
             morse_list = map(lambda m:  m.split(' '), morse.split('   '))
             print('333333333333', morse_list)
-            return ' '.join([''.join(map(self.__return_letter, word)) for word in morse_list])
-        return ''
+            aux = []
+            for word in morse_list:
+                for w in word:
+                    res, ok = self.__return_letter(w)
+                    if not ok:
+                        return res, 501
+                    aux.append(res)
+            return ' '.join(aux), 200
+        return '', 200
 
     @classmethod
     def translate2Morse(self, human):
@@ -212,8 +219,8 @@ class CodigoMorse(models.Model):
         """
         dict_morse = self.get_code_dict()
         if human:
-            return ' '.join([dict_morse.get(h) if dict_morse.get(h) else '' for h in human.upper()])
-        return ''
+            return ' '.join([dict_morse.get(h) if dict_morse.get(h) else '' for h in human.upper()]), 200
+        return '', 200
 
     @classmethod
     def decodeBits2Morse(self, binary):
@@ -223,7 +230,7 @@ class CodigoMorse(models.Model):
         ----------
         binary : str
             A binary message simulating morse code
-        
+
         Returns
         -------
         str
@@ -282,7 +289,7 @@ class WordsTable(models.Model):
             A representaton on morse code from word attribute
         frequency : int
             The frequency of the word
-        
+
         Returns
         -------
         WordsTable
@@ -308,4 +315,3 @@ class WordsTable(models.Model):
                     word = self.create(
                         word=key, morse=CodigoMorse.translate2Morse(key), frequency=val)
                     word.save()
-

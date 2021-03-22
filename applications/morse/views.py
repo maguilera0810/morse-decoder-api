@@ -42,8 +42,7 @@ class Translate2Morse(APIView):
             text = serializer.data.get('text')
             try:
                 WordsTable.update_words(text)
-                res = CodigoMorse.translate2Morse(text)
-                code = 200
+                res, code = CodigoMorse.translate2Morse(text)
             except Exception as e:
                 code = 500
                 res = f'Translate2Morse Error:{e}'
@@ -63,11 +62,9 @@ class Translate2Human(APIView):
         if serializer.is_valid():
             text = serializer.data.get('text')
             try:
-                res = CodigoMorse.translate2Human(text)
+                res, code = CodigoMorse.translate2Human(text)
                 WordsTable.update_words(res)
-                code = 200
             except Exception as e:
-                code = 500
                 res = f'Translate2Human Error:{e}'
         return Response({
             'code': code,
@@ -86,7 +83,8 @@ class DecodeBits2Morse(APIView):
             text = serializer.data.get('text')
             try:
                 res = CodigoMorse.decodeBits2Morse(text)
-                WordsTable.update_words(CodigoMorse.translate2Human(res))
+                aux, _ = CodigoMorse.translate2Human(res)
+                WordsTable.update_words(aux)
                 code = 200
             except Exception as e:
                 code = 500
