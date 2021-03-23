@@ -28,7 +28,11 @@ class WordsFrecuencyView(ListAPIView):
     pagination_class = WordsPagination
 
     def get_queryset(self):
-        return WordsTable.objects.all().order_by('frequency').desc()
+        try:
+            return WordsTable.objects.all().order_by('frequency').desc()
+        except Exception as e:
+            print(f'WordsFrecuencyView ------Error:  {e}')
+            return []
 
 
 class Translate2Morse(APIView):
