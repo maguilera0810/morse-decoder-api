@@ -29,7 +29,7 @@ class WordsFrecuencyView(ListAPIView):
 
     def get_queryset(self):
         try:
-            return WordsTable.objects.all().order_by('frequency').desc()
+            return WordsTable.objects.all().order_by('-frequency')
         except Exception as e:
             print(f'WordsFrecuencyView ------Error:  {e}')
             return []
