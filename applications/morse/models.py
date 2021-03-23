@@ -54,6 +54,7 @@ class CodigoMorse(models.Model):
         str
             A string of morse code representation of the letter parameter
         """
+
         dict_morse = self.get_code_dict()
         res = ''
         try:
@@ -61,8 +62,8 @@ class CodigoMorse(models.Model):
             values = list(dict_morse.values())
             res = keys[values.index(letter)]
         except Exception as e:
-            raise letter
-        return res
+            return letter, False
+        return res, True
 
     @staticmethod
     def __find_greatest_separator(lista):
@@ -103,7 +104,6 @@ class CodigoMorse(models.Model):
         """
         indixes = []
         sep = self.__find_greatest_separator(lista)
-        print('--->>', sep, lista)
         for reps in range(len(sep), min_leght-1, -1):
             indixes += [idx for idx,
                         val in enumerate(lista) if val == '0'*reps]
@@ -126,6 +126,7 @@ class CodigoMorse(models.Model):
         array
             A array of strings classified into words
         """
+
         indixes = self.__get_indixes(lista, min_leght[0])
         if len(min_leght) == 1:
             if len(indixes) == 0:
@@ -188,19 +189,19 @@ class CodigoMorse(models.Model):
         str
            A alphanumeric representation of the input message
         """
-        print('11111111111')
         if morse:
-            print('22222222222')
             morse_list = map(lambda m:  m.split(' '), morse.split('   '))
-            print('333333333333', morse_list)
-            aux = []
+            res = []
             for word in morse_list:
+                aux = []
                 for w in word:
-                    res, ok = self.__return_letter(w)
-                    if not ok:
-                        return res, 501
-                    aux.append(res)
-            return ' '.join(aux), 200
+                    if w:
+                        r, ok = self.__return_letter(w)
+                        if not ok:
+                            return r, 501
+                        aux.append(r)
+                res.append(''.join(aux))
+            return ' '.join(res), 200
         return '', 200
 
     @classmethod
@@ -219,7 +220,14 @@ class CodigoMorse(models.Model):
         """
         dict_morse = self.get_code_dict()
         if human:
-            return ' '.join([dict_morse.get(h) if dict_morse.get(h) else '' for h in human.upper()]), 200
+            res = []
+            for h in human.upper().split(' '):
+                aux = []
+                for letter in h:
+                    if letter in dict_morse:
+                        aux.append(dict_morse.get(letter))
+                res.append(' '.join(aux))
+            return '   '.join(res), 200
         return '', 200
 
     @classmethod
@@ -239,7 +247,6 @@ class CodigoMorse(models.Model):
         cad = ''
         if binary:
             words = self.__split_words_letters(self.__to_list(binary), [8, 4])
-            print(words)
             for idx1, word in enumerate(words):
                 for idx2, letter in enumerate(word):
                     for l in letter:

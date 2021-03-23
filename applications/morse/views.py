@@ -83,12 +83,12 @@ class DecodeBits2Morse(APIView):
             text = serializer.data.get('text')
             try:
                 res = CodigoMorse.decodeBits2Morse(text)
-                aux, _ = CodigoMorse.translate2Human(res)
+                aux, x = CodigoMorse.translate2Human(res)
                 WordsTable.update_words(aux)
                 code = 200
             except Exception as e:
                 code = 500
-                res = f'DecodeBits2Morse Error:{e}'
+                res = f'DecodeBits2Morse Error: Mensaje Invalido'
         return Response({
             'code': code,
             'response': res
@@ -106,12 +106,11 @@ class DecodeBits2Human(APIView):
             text = serializer.data.get('text')
             try:
                 morse = CodigoMorse.decodeBits2Morse(text)
-                res = CodigoMorse.translate2Human(morse)
+                res, code = CodigoMorse.translate2Human(morse)
                 WordsTable.update_words(res)
-                code = 200
             except Exception as e:
                 code = 500
-                res = f'DecodeBits2Human Error:{e}'
+                res = f'DecodeBits2Human Error: Mensaje Invalido'
         return Response({
             'code': code,
             'response': res

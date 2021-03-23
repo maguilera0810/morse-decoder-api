@@ -45,7 +45,7 @@ def codigo_morse_instance():
 )
 @pytest.mark.django_db(transaction=True)
 def test_translate_to_human(morse, expected, codes_dict):
-    assert CodigoMorse.translate2Human(morse) == expected
+    assert CodigoMorse.translate2Human(morse)[0] == expected
 
 
 @pytest.mark.parametrize(
@@ -54,7 +54,7 @@ def test_translate_to_human(morse, expected, codes_dict):
 )
 @pytest.mark.django_db(transaction=True)
 def test_translate_to_morse(expected, human, codes_dict):
-    assert CodigoMorse.translate2Morse(human) == expected
+    assert CodigoMorse.translate2Morse(human)[0] == expected
 
 @pytest.mark.parametrize(
     "binary, morse, human",
