@@ -21,4 +21,4 @@ def read_files(name_file='codes.txt'):
                 print('ERROR--> ', e)
 
 if __name__ == '__main__':
-    read_files('applications/morse/scripts/codes.txt')
+    read_files()
