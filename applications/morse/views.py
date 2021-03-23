@@ -28,7 +28,7 @@ class WordsFrecuencyView(ListAPIView):
     pagination_class = WordsPagination
 
     def get_queryset(self):
-        return WordsTable.objects.all()
+        return WordsTable.objects.all().order_by('frequency').desc()
 
 
 class Translate2Morse(APIView):
