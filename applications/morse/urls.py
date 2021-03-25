@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.urls import path
-#from rest_framework_simplejwt import views as jwt_views
+from django.conf import settings
+from rest_framework_simplejwt import views as jwt_views
 from . import views
 
 urlpatterns = [
@@ -11,8 +12,11 @@ urlpatterns = [
     path('api/translate/2human', views.Translate2Human.as_view(), name='2human'),
     path('api/translate/bit2morse', views.DecodeBits2Morse.as_view(), name='bit2morse'),
     path('api/translate/bit2human', views.DecodeBits2Human.as_view(), name='bit2human'),
-    #path('api/token/obtain/', jwt_views.TokenObtainPairView.as_view(), name='token_create'),  # override sjwt stock token
-    #path('api/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
-
-    
 ]
+
+if settings.JWT_FLAG:
+    urlpatterns += [
+        path('api/token/obtain/', jwt_views.TokenObtainPairView.as_view(), name='token_create'),  # override sjwt stock token
+        path('api/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
+        ]
+
