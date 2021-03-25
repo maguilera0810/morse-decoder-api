@@ -124,7 +124,7 @@ STATIC_URL = '/static/'
 
 
 # JWT
-if False:
+if True:
     REST_FRAMEWORK = {
         'DEFAULT_PERMISSION_CLASSES': (
             'rest_framework.permissions.IsAuthenticated',
